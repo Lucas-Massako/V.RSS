@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Technologique - Flux RSS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <header>
+        <h1><span>Ma veille Technologique</span> <span class="white-text"> <br>Les Artciles qui m'on interésser</span></h1>
+    </header>
+
+    <nav id="nav">
+        <ul>
+            <li><a href="ia.html">💡🤖 Veille IA</a></li>
+            <li><a href="jv.html">🗞️🎮 Jeux Vidéo</a></li>
+            <li><a href="psg.html">❤️💙 PSG</a></li>
+            <li><a href="https://lucas-webdev.fr" target="_blank">👨🏾‍💻🌍 Portfolio</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <h2>Articles Aimés</h2>
+        <div id="liked-articles"></div>
+    
+        <script>
+            function loadLikedArticles() {
+                let savedArticles = JSON.parse(localStorage.getItem("likedArticles")) || [];
+                const container = document.getElementById("liked-articles");
+                container.innerHTML = savedArticles.length ? "" : "<p>Aucun article enregistré.</p>";
+                
+                savedArticles.forEach(article => {
+                    container.innerHTML += `
+                        <div class="article">
+                            <a href="${article.link}" target="_blank">
+                                ${article.image ? `<img src="${article.image}" >` : ""}
+                                <h3>${article.title}</h3>
+                            </a>
+                            <p>${article.description}</p>
+                            <button onclick="removeArticle(\`${article.link}\`)">❌ Retirer</button>
+                        </div>
+                    `;
+                });
+            }
+
+            function removeArticle(link) {
+                let savedArticles = JSON.parse(localStorage.getItem("likedArticles")) || [];
+                savedArticles = savedArticles.filter(article => article.link !== link);
+                localStorage.setItem("likedArticles", JSON.stringify(savedArticles));
+                loadLikedArticles(); // Recharger l'affichage
+            }
+
+            loadLikedArticles();
+        </script>
+    </main>
+
+    <footer>
+        © 2025 - Projet BTS - Tous droits réservés
+    </footer>
+
+    <script src="v2.js"></script>
+</body>
+</html>

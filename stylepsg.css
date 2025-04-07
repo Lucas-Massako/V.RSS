@@ -1,0 +1,206 @@
+/* Réinitialisation */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Arrière-plan PSG */
+body {
+    background: linear-gradient(135deg, #002654, #DA291C, #FFFFFF);
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Effet flou et ambiance PSG */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('psg-bg.jpg') center/cover no-repeat;
+    filter: blur(12px) brightness(0.5);
+    z-index: -1;
+}
+
+/* Contenu principal */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 20px rgba(218, 41, 28, 0.6);
+    max-width: 800px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* NAVBAR STYLES */
+/* NAVBAR STYLES */
+/* NAVBAR STYLES */
+nav {
+    background: rgba(0, 0, 0, 0.4); /* Fond semi-transparent */
+    backdrop-filter: blur(10px); /* Effet flou */
+    padding: 10px 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    margin: 20px auto;
+}
+
+/* Style spécial pour le dégradé des titres H1 hee */  
+h1 span {
+    background: linear-gradient(135deg, #DA291C, #002654);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+h1 .white-text {
+    color: white;
+}
+
+/* Titres */
+h2 {
+    color: #DA291C;
+    text-shadow: 0 0 12px rgba(218, 41, 28, 0.9);
+    margin-bottom: 15px;
+}
+
+/* Encadré noir autour des articles */
+.articles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+.article {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(218, 41, 28, 0.6);
+    max-width: 350px;
+    animation: fadeInUp 0.8s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Images des articles */
+.article img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.article:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(218, 41, 28, 0.8);
+}
+
+/* Liens */
+.article a {
+    color: #DA291C;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    font-size: 1.2em;
+    transition: text-shadow 0.3s ease;
+}
+
+.article a:hover {
+    text-shadow: 0 0 8px #DA291C;
+}
+
+/* Description des articles */
+.article p {
+    color: #ccc;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+/* Boutons stylés */
+button {
+    background: linear-gradient(135deg, #DA291C, #002654);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin-top: 20px;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(218, 41, 28, 0.7);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
