@@ -1,10 +1,32 @@
 /* Réinitialisation */
+.animated-title {
+    font-size: 3em;
+    font-weight: 700;
+    padding: 30px 40px;
+    margin-bottom: 40px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    animation: slideFade 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  @keyframes slideFade {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
+
 
 /* Arrière-plan PSG */
 body {
@@ -14,11 +36,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 40px 20px;
     overflow-x: hidden;
+    position: relative;
+    gap: 40px;
 }
 
 /* Effet flou et ambiance PSG */
@@ -35,27 +59,27 @@ body::before {
 }
 
 /* Contenu principal */
-.container {
+.container,
+section {
     background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 0 20px rgba(218, 41, 28, 0.6);
-    max-width: 800px;
-    animation: fadeIn 1s ease-in-out;
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    width: 100%;
+    margin: 20px 0;
 }
 
 /* NAVBAR STYLES */
-/* NAVBAR STYLES */
-/* NAVBAR STYLES */
 nav {
-    background: rgba(0, 0, 0, 0.4); /* Fond semi-transparent */
-    backdrop-filter: blur(10px); /* Effet flou */
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
     padding: 10px 20px;
     border-radius: 15px;
     text-align: center;
-    margin: 20px auto;
     max-width: 800px;
+    margin: 0 auto 20px;
 }
 
 nav ul {
@@ -64,6 +88,8 @@ nav ul {
     margin: 0;
     display: flex;
     justify-content: space-around;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 nav li {
@@ -80,44 +106,110 @@ nav a {
     transition: 0.3s;
 }
 
-h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-    text-align: center;
-    padding: 20px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    display: inline-block;
-    margin: 20px auto;
+nav a:hover {
+    background: linear-gradient(135deg,#DA291C, #002654);
+    color: white;
 }
 
-/* Style spécial pour le dégradé des titres H1 hee */  
-h1 span {
+h1 {
+    font-size: 3.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 30px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    margin: 0 auto 20px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+h1 .white-text {
+    color: #fff;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 12px 25px;
+    margin: 15px auto;
+    display: inline-block;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 8px rgba(218, 41, 28, 0.3);
+    text-align: center;
+}
+
+h2 span {
     background: linear-gradient(135deg, #DA291C, #002654);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-h1 .white-text {
+h2 .white-text {
+    color: orange;
+}
+
+.external-links,
+button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button, .link-button {
+    background: linear-gradient(135deg, #DA291C, #002654);
     color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-width: 200px;
 }
 
-/* Titres */
-h2 {
-    color: #DA291C;
-    text-shadow: 0 0 12px rgba(218, 41, 28, 0.9);
-    margin-bottom: 15px;
+button:hover, .link-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(218, 41, 28, 0.7);
 }
 
-/* Encadré noir autour des articles */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    max-width: 240px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
 .articles-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     max-width: 1200px;
+    margin: 0 auto;
 }
 
 .article {
@@ -129,19 +221,19 @@ h2 {
     animation: fadeInUp 0.8s ease-in-out;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-/* Images des articles */
+
 .article img {
     width: 100%;
     height: 180px;
     object-fit: cover;
     border-radius: 10px;
 }
+
 .article:hover {
     transform: scale(1.02);
     box-shadow: 0 0 25px rgba(218, 41, 28, 0.8);
 }
 
-/* Liens */
 .article a {
     color: #DA291C;
     text-decoration: none;
@@ -156,7 +248,6 @@ h2 {
     text-shadow: 0 0 8px #DA291C;
 }
 
-/* Description des articles */
 .article p {
     color: #ccc;
     font-size: 0.9em;
@@ -164,25 +255,6 @@ h2 {
     margin-top: 5px;
 }
 
-/* Boutons stylés */
-button {
-    background: linear-gradient(135deg, #DA291C, #002654);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    margin-top: 20px;
-    font-size: 1em;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(218, 41, 28, 0.7);
-}
-
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
