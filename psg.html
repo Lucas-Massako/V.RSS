@@ -1,122 +1,139 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSG News</title>
-    <link rel="stylesheet" href="stylepsg.css"> 
-    <link rel="script" href="v2.js">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PSG News</title>
+  <link rel="stylesheet" href="stylepsg.css" />
+ 
 </head>
+
 <body>
-    <header>
-        <h1><span>Ma veille Technologique</span> <span class="white-text"> <br>Le meilleur club de France </span></h1>
-        <nav>
-            <a href="index.html">Accueil</a>
-            <li><a href="ia.html">💡🤖 Veille IA</a></li>
-            <a href="jv.html"> 🗞️🎮 Jeux Vidéo</a>
-            <li><a href="https://lucas-webdev.fr" target="_blank">👨🏾‍💻🌍 Portfolio</a></li>
-        </nav>
-    </header>
-</body>
-<p> ô Ville Lumiere </p>
-<main>
-    <section id="rss-feed-psg">
-        <p>Chargement des articles...</p>
+  <header>
+    <h1 class="animated-title">
+      <span>Ma veille Technologique</span>
+      <span class="white-text"><br />Le meilleur club de France</span>
+    </h1>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <li><a href="ia.html">💡🤖 Veille IA</a></li>
+      <a href="jv.html">🗞️🎮 Jeux Vidéo</a>
+      <li><a href="https://lucas-webdev.fr" target="_blank">👨🏾‍💻🌍 Portfolio</a></li>
+    </nav>
+  </header>
+
+  <main>
+    
+
+    <div class="external-links">
+      <a href="https://twitter.com/PSG_inside" target="_blank">
+        <button class="link-button">🕊️ Twitter PSG Inside</button>
+      </a>
+      <a href="https://www.youtube.com/results?search_query=psg" target="_blank">
+        <button class="link-button">📺 YouTube PSG</button>
+      </a>
+      <a href="https://www.google.com/search?q=PSG" target="_blank">
+        <button class="link-button">🔍 Recherche PSG</button>
+      </a>
+    </div>
+
+    <section class="last-match">
+      <h2>🌟 Dernier match du PSG</h2>
+      <div id="match-result">Chargement...</div>
+    </section>
+
+    <section class="embed">
+      <h2>📸 Images PSG en direct depuis Pexels</h2>
+      <button class="refresh-button" onclick="fetchPexelsImages()">🔁 Changer les images</button>
+      <div id="gallery" class="gallery">
+        <p>Chargement des images...</p>
+      </div>
     </section>
 
     <section id="projet">
-        <h1><span>Le parc des princes </span> <span class="white-text"> <br> </span></h1>
-        <a href="https://lucas-massako.github.io/Parc-des-Princes/" target="_blank">
-            <br>
-            <button>Le Stade Mythique du PSG</button>
-        </a>
-       
+      <a href="https://lucas-massako.github.io/Parc-des-Princes/" target="_blank">
+        <br />
+        <button>Le Stade Mythique du PSG</button>
+      </a>
     </section>
+  </main>
 
-   
-    
-</main>
+  <script>
+    const API_KEY = "1NlrocbRNHzdpwUbK6LuraEqUJ0LuDsEfUL6kdVrEPdLCd9NAdkJZA0L";
 
+    async function fetchPexelsImages(query = "PSG") {
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "<p>Chargement des images...</p>";
 
-<script>
-    async function fetchIARSS() {
-        const rssFeedElement = document.getElementById("rss-feed-psg");
-        rssFeedElement.innerHTML = "<p>Chargement des articles...</p>";
-
-        const RSS_FEEDS = [
-        
-       //{ name: "lequipe", url:"https://dwh.lequipe.fr/api/edito/rss?path=/Football/.xml"},
-        { name:"google", url:"https://news.google.com/topics/CAAqIggKIhxDQkFTRHdvSkwyMHZNREZmTVd0ckVnSm1jaWdBUAE?ceid=FR:fr&oc=3.xml"},
-       
-       
-        ];
-
-        rssFeedElement.innerHTML = "";
-
-        for (const feed of RSS_FEEDS) {
-            try {
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feed.url)}`);
-
-                const data = await response.json();
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(data.contents, "text/xml");
-
-                const feedContainer = document.createElement("div");
-                feedContainer.classList.add("rss-source");
-                feedContainer.innerHTML = `<h3>${feed.name}</h3>`;
-
-                displayRSS(xml, feedContainer);
-                rssFeedElement.appendChild(feedContainer);
-
-            } catch (error) {
-                console.error(`Erreur lors de la récupération du flux RSS (${feed.name}) :`, error);
-                rssFeedElement.innerHTML += `<p>Impossible de charger les articles de ${feed.name}.</p>`;
-            }
-        }
-    }
-
-    function displayRSS(xml, feedContainer) {
-        const items = xml.querySelectorAll("item");
-        let html = "";
-        const uniqueLinks = new Set();
-    
-        items.forEach((item, index) => {
-            if (index < 4) {
-                const title = item.querySelector("title")?.textContent || "Sans titre";
-                let link = item.querySelector("link")?.textContent || "#";
-                const description = item.querySelector("description")?.textContent || "Pas de description";
-                const image = item.querySelector("enclosure")?.getAttribute("url") || "";
-    
-                if (!uniqueLinks.has(link)) {
-                    uniqueLinks.add(link);
-                    html += `
-                        <div class="article">
-                            <a href="${link}" target="_blank">${title}</a>
-                            <p>${description}</p>
-                            
-                            <button onclick="saveArticle('${title}', '${link}', '${description}')" >❤️ Aimer</button>
-                        </div>
-                    `;
-                }
-            }
+      try {
+        const res = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=9`, {
+          headers: {
+            Authorization: API_KEY
+          }
         });
-    
-        feedContainer.innerHTML += html || "<p>Aucun article disponible.</p>";
-    }
 
-    function saveArticle(title, link, image, description) {
-        let savedArticles = JSON.parse(localStorage.getItem("likedArticles")) || [];
-    
-        if (!savedArticles.some(article => article.link === link)) {
-            savedArticles.push({ title, link, image, description });
-            localStorage.setItem("likedArticles", JSON.stringify(savedArticles));
-            alert("Article ajouté aux favoris !");
-        } else {
-            alert("Cet article est déjà dans vos favoris.");
+        if (!res.ok) throw new Error("Erreur API Pexels");
+
+        const data = await res.json();
+        const images = data.photos;
+
+        if (!images || images.length === 0) {
+          gallery.innerHTML = "<p>Aucune image trouvée.</p>";
+          return;
         }
+
+        gallery.innerHTML = images.map(photo => `
+          <img src="${photo.src.medium}" alt="${photo.alt || "Photo PSG"}">`
+        ).join("");
+
+      } catch (err) {
+        console.error("Erreur lors du chargement des images :", err);
+        gallery.innerHTML = "<p class='error'>Impossible de charger les images depuis Pexels.</p>";
+      }
     }
 
-    fetchIARSS();
-</script>
+    async function getLastMatch() {
+      const matchResult = document.getElementById("match-result");
+
+      try {
+        const response = await fetch(
+          "https://api-football-v1.p.rapidapi.com/v3/fixtures?team=85&last=1",
+          {
+            method: "GET",
+            headers: {
+              "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+              "x-rapidapi-key": "f2a410daf3mshd934e1851bf123bp109638jsna93798e746ed"
+            }
+          }
+        );
+
+        const data = await response.json();
+        const match = data.response[0];
+
+        const home = match.teams.home.name;
+        const away = match.teams.away.name;
+        const score = `${match.goals.home} - ${match.goals.away}`;
+        const date = new Date(match.fixture.date).toLocaleDateString("fr-FR");
+
+        matchResult.innerText = `${home} vs ${away} : ${score} (${date})`;
+      } catch (error) {
+        console.error("Erreur :", error);
+        matchResult.innerText = "Impossible de charger le dernier match.";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchPexelsImages("PSG");
+      getLastMatch();
+
+      const refreshBtn = document.querySelector(".refresh-button");
+      if (refreshBtn) {
+        refreshBtn.addEventListener("click", () => {
+          fetchPexelsImages("PSG LDC");
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
