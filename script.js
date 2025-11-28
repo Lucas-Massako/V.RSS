@@ -7,7 +7,13 @@ const RSS_FEEDS = [
     { name: "PSG Officiel", url: "https://www.psg.fr/rss/actualites" }, // Flux RSS sur le PSG
     { name: "football", url:"https://www.lequipe.fr/Football/"}
 ];
-
+function portfolioIndisponible(event) {
+            // Empêche l'action par défaut du lien (la navigation)
+            event.preventDefault();
+            
+            // Affiche le message d'erreur
+            alert("Portfolio en refonte - actuellement indisponible.");
+        }
 // Fonction principale qui gère la récupération des flux RSS pour l'IA
 async function fetchIARSS() {
     const rssFeedElement = document.getElementById("rss-feed");
